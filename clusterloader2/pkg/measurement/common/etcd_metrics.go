@@ -200,7 +200,7 @@ func (e *etcdMetricsMeasurement) getEtcdMetrics(host string, provider provider.P
 
 	// Use old endpoint if new one fails, "2379" is hard-coded here as well, it is kept as is since
 	// we don't want to bloat the cluster config only for a fall-back attempt.
-	etcdCert, etcdKey, etcdHost := os.Getenv("ETCD_CERTIFICATE"), os.Getenv("ETCD_KEY"), os.Getenv("ETCD_HOST")
+	etcdCert, etcdKey, caCert, etcdHost := os.Getenv("ETCD_CERTIFICATE"), os.Getenv("ETCD_KEY"), os.Getenv("CA_CERT"), os.Getenv("ETCD_HOST")
 	if etcdHost == "" {
 		etcdHost = "localhost"
 	}
@@ -208,7 +208,7 @@ func (e *etcdMetricsMeasurement) getEtcdMetrics(host string, provider provider.P
 		klog.Warning("empty etcd cert or key, using http")
 		cmd = fmt.Sprintf("curl http://%s:2379/metrics", etcdHost)
 	} else {
-		cmd = fmt.Sprintf("curl -k --cert %s --key %s https://%s:2379/metrics", etcdCert, etcdKey, etcdHost)
+		cmd = fmt.Sprintf("curl -k --cert %s --key %s --cacert %s https://%s:2379/metrics", etcdCert, etcdKey, caCert, etcdHost)
 	}
 
 	return e.sshEtcdMetrics(cmd, host, provider)
