@@ -23,7 +23,7 @@ spec:
     spec:
       hostNetwork: {{$HostNetworkMode}}
       containers:
-      - image: k8s.gcr.io/pause:3.1
+      - image: zackzhangkai/b2i-war-java8-sample
         name: {{.Name}}
         resources:
           requests:

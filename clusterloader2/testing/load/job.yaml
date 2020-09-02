@@ -22,7 +22,8 @@ spec:
       containers:
       - name: {{.Name}}
         # TODO(#799): We should test the "run-to-completion" workflow and hence don't use pause pods.
-        image: k8s.gcr.io/pause:3.1
+        image: perl
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
         resources:
           requests:
             cpu: 10m

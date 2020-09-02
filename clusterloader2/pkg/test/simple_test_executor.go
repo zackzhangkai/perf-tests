@@ -55,7 +55,7 @@ func (ste *simpleExecutor) ExecuteTest(ctx Context, conf *api.Config) *errors.Er
 	ctx.GetClusterFramework().SetAutomanagedNamespacePrefix(conf.Namespace.Prefix)
 	klog.V(2).Infof("AutomanagedNamespacePrefix: %s", ctx.GetClusterFramework().GetAutomanagedNamespacePrefix())
 
-	defer cleanupResources(ctx, conf)
+	//defer cleanupResources(ctx, conf)
 	ctx.GetFactory().Init(conf.TuningSets)
 
 	stopCh := make(chan struct{})

@@ -20,6 +20,8 @@ spec:
         group: load
         name: {{.Name}}
     spec:
+      tolerations:
+      - operator: Exists
       hostNetwork: {{$HostNetworkMode}}
       containers:
       - name: {{.Name}}
